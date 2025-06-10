@@ -1,5 +1,5 @@
 "use client";
-import { BrowserMultiFormatReader } from "@zxing/library";
+import { BrowserMultiFormatReader } from "@zxing/browser";
 import { NotFoundException } from "@zxing/library";
 import { useEffect, useRef, useState } from "react";
 
@@ -14,12 +14,11 @@ const BarcodeScanner = () => {
       const codeReader = new BrowserMultiFormatReader();
       codeReaderRef.current = codeReader;
 
-      const devices = await codeReader.listVideoInputDevices();
+      const devices = await BrowserMultiFormatReader.listVideoInputDevices();
       if (devices.length === 0) {
         console.error("No video input devices found");
         return;
       }
-
       const selectedDeviceId = devices[0].deviceId;
       let videoConstraints;
       if (!selectedDeviceId) {
@@ -53,7 +52,6 @@ const BarcodeScanner = () => {
 
   const resetScanning = () => {
     if (codeReaderRef.current) {
-      codeReaderRef.current.reset();
       codeReaderRef.current = null;
       console.log("Scanner reset");
     }
