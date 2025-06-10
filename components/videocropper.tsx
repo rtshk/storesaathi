@@ -5,8 +5,8 @@ import { BrowserMultiFormatReader } from "@zxing/browser";
 import {  Result } from "@zxing/library";
 
 // Aspect ratio and crop size factor
-const DESIRED_CROP_ASPECT_RATIO = 3 / 1;
-const CROP_SIZE_FACTOR = 0.7;
+const DESIRED_CROP_ASPECT_RATIO = 3 / 2;
+const CROP_SIZE_FACTOR = 0.4;
 
 export default function CameraView() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -21,7 +21,9 @@ export default function CameraView() {
 
     const startCamera = async () => {
       try {
-        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: { ideal: "environment" } }
+        });
         if (videoRef.current) {
           videoRef.current.srcObject = stream;
           videoRef.current.onloadedmetadata = () => {
@@ -64,8 +66,20 @@ export default function CameraView() {
         cropHeight = cropWidth / DESIRED_CROP_ASPECT_RATIO;
       }
 
+      // Clamp to video bounds
       cropWidth = Math.min(cropWidth, video.videoWidth);
       cropHeight = Math.min(cropHeight, video.videoHeight);
+
+      // 👇 Clamp to min/max allowed sizes
+      const MIN_CROP_WIDTH = 240;
+      const MAX_CROP_WIDTH = 600;
+      const MIN_CROP_HEIGHT = 80;
+      const MAX_CROP_HEIGHT = 400;
+
+      cropWidth = Math.max(MIN_CROP_WIDTH, Math.min(MAX_CROP_WIDTH, cropWidth));
+      cropHeight = Math.max(MIN_CROP_HEIGHT, Math.min(MAX_CROP_HEIGHT, cropHeight));
+
+
 
       const cropX = (video.videoWidth - cropWidth) / 2;
       const cropY = (video.videoHeight - cropHeight) / 2;
@@ -148,7 +162,6 @@ export default function CameraView() {
         position: 'relative',
         width: '100%',
         maxWidth: '400px',
-        aspectRatio: '16 / 9',
         backgroundColor: '#000',
         borderRadius: '0.75rem',
         overflow: 'hidden',
