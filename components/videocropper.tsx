@@ -28,7 +28,7 @@ export default function CameraView() {
           videoRef.current.srcObject = stream;
           videoRef.current.onloadedmetadata = () => {
             videoRef.current?.play();
-            intervalId = setInterval(captureFrameAndCrop, 500);
+            intervalId = setInterval(captureFrameAndCrop, 50);
           };
         }
       } catch (err) {
