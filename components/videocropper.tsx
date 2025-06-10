@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { BrowserMultiFormatReader, } from "@zxing/browser";
+import { BrowserMultiFormatReader, Result } from "@zxing/browser";
 
 // Aspect ratio and crop size factor
 const DESIRED_CROP_ASPECT_RATIO = 3 / 1;
@@ -101,9 +101,9 @@ export default function CameraView() {
           console.log("Decoded barcode:", result.getText());
           setBarcodeResult(result.getText());
         } catch (err: any) {
-          if (err.name !== "NotFoundException") {
-            console.error("Decoding error:", err);
-          }
+           if (err instanceof Error && err.name !== "NotFoundException") {
+                console.error("Decoding error:", err);
+              }
           setBarcodeResult(null);
         }
       };
