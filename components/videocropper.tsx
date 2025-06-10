@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { BrowserMultiFormatReader, Result } from "@zxing/browser";
+import { BrowserMultiFormatReader } from "@zxing/browser";
+import {  Result } from "@zxing/library";
 
 // Aspect ratio and crop size factor
 const DESIRED_CROP_ASPECT_RATIO = 3 / 1;
