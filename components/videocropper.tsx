@@ -119,7 +119,6 @@ export default function CameraView() {
            if (err instanceof Error && err.name !== "NotFoundException") {
                 console.error("Decoding error:", err);
               }
-          setBarcodeResult(null);
         }
       };
 
@@ -144,7 +143,6 @@ export default function CameraView() {
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
-      padding: '1rem',
       minHeight: '100vh',
       backgroundColor: '#f9fafb',
       fontFamily: 'sans-serif'
@@ -152,7 +150,6 @@ export default function CameraView() {
       <h2 style={{
         fontSize: '1.5rem',
         fontWeight: 'bold',
-        marginBottom: '1.5rem',
         color: '#1f2937'
       }}>
         Camera View for Barcode Scanning
@@ -166,7 +163,6 @@ export default function CameraView() {
         borderRadius: '0.75rem',
         overflow: 'hidden',
         boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
-        marginBottom: '2rem'
       }}>
         <video
           ref={videoRef}
@@ -196,7 +192,6 @@ export default function CameraView() {
 
       <p style={{
         color: '#4b5563',
-        marginTop: '0.5rem',
         fontSize: '0.875rem',
         textAlign: 'center'
       }}>
@@ -206,8 +201,6 @@ export default function CameraView() {
       <h3 style={{
         fontSize: '1.25rem',
         fontWeight: 'semibold',
-        marginTop: '2rem',
-        marginBottom: '1rem',
         color: '#1f2937'
       }}>
         Cropped Barcode Scan Area:
@@ -217,7 +210,6 @@ export default function CameraView() {
         ref={displayCroppedCanvasRef}
         style={{
           border: '2px solid #3b82f6',
-          marginTop: '0.5rem',
           borderRadius: '0.5rem',
           boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.05)',
           maxWidth: '100%',
@@ -233,14 +225,10 @@ export default function CameraView() {
       <p style={{
         color: '#9ca3af',
         fontSize: '0.75rem',
-        marginTop: '0.5rem'
       }}>
         This canvas updates every 0.5 seconds with the focused area.
       </p>
-
-      {barcodeResult && (
         <div style={{
-          marginTop: '1rem',
           padding: '1rem',
           border: '2px dashed #10b981',
           borderRadius: '0.5rem',
@@ -250,9 +238,8 @@ export default function CameraView() {
           fontWeight: '500',
           textAlign: 'center'
         }}>
-          ✅ Barcode Detected: {barcodeResult}
+          ✅ Barcode : {barcodeResult}
         </div>
-      )}
     </div>
   );
 }
