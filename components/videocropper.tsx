@@ -100,7 +100,7 @@ export default function CameraView() {
           const result: Result = await codeReader.current.decodeFromCanvas(displayCanvas);
           console.log("Decoded barcode:", result.getText());
           setBarcodeResult(result.getText());
-        } catch (err: any) {
+        } catch (err: unknown) {
            if (err instanceof Error && err.name !== "NotFoundException") {
                 console.error("Decoding error:", err);
               }
