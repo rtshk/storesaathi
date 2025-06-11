@@ -102,7 +102,7 @@ export default function CameraView() {
       overlayDiv.style.top = `${(cropY / video.videoHeight) * 100}%`;
       overlayDiv.style.width = `${(cropWidth / video.videoWidth) * 100}%`;
       overlayDiv.style.height = `${(cropHeight / video.videoHeight) * 100}%`;
-      overlayDiv.style.border = '4px solid white';
+      overlayDiv.style.border = '2px solid white';
       overlayDiv.style.borderRadius = '0.5rem';
       overlayDiv.style.pointerEvents = 'none';
       overlayDiv.style.boxSizing = 'border-box';
@@ -167,14 +167,6 @@ export default function CameraView() {
         />
         <div
           ref={cropOverlayRef}
-          style={{
-            position: 'absolute',
-            border: '1px solid white',
-            borderRadius: '0.5rem',
-            pointerEvents: 'none',
-            boxSizing: 'border-box',
-            left: '0%', top: '0%', width: '100%', height: '100%'
-          }}
         ></div>
       </div>
 
