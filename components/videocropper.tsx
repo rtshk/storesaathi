@@ -28,7 +28,7 @@ export default function CameraView() {
           videoRef.current.srcObject = stream;
           videoRef.current.onloadedmetadata = () => {
             videoRef.current?.play();
-            intervalId = setInterval(captureFrameAndCrop, 50);
+            intervalId = setInterval(captureFrameAndCrop, 100);
           };
         }
       } catch (err) {
@@ -66,11 +66,9 @@ export default function CameraView() {
         cropHeight = cropWidth / DESIRED_CROP_ASPECT_RATIO;
       }
 
-      // Clamp to video bounds
       cropWidth = Math.min(cropWidth, video.videoWidth);
       cropHeight = Math.min(cropHeight, video.videoHeight);
 
-      // 👇 Clamp to min/max allowed sizes
       const MIN_CROP_WIDTH = 240;
       const MAX_CROP_WIDTH = 600;
       const MIN_CROP_HEIGHT = 80;
@@ -109,7 +107,6 @@ export default function CameraView() {
       overlayDiv.style.pointerEvents = 'none';
       overlayDiv.style.boxSizing = 'border-box';
 
-      // Decode barcode from canvas
       const decodeCanvas = async () => {
         try {
           const result: Result = await codeReader.current.decodeFromCanvas(displayCanvas);
@@ -138,13 +135,9 @@ export default function CameraView() {
 
   return (
     <div style={{
-      width: '100%',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      justifyContent: 'center',
-      minHeight: '100vh',
-      backgroundColor: '#f9fafb',
       fontFamily: 'sans-serif'
     }}>
       <h2 style={{
@@ -159,10 +152,7 @@ export default function CameraView() {
         position: 'relative',
         width: '100%',
         maxWidth: '400px',
-        backgroundColor: '#000',
-        borderRadius: '0.75rem',
         overflow: 'hidden',
-        boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
       }}>
         <video
           ref={videoRef}
@@ -226,7 +216,7 @@ export default function CameraView() {
         color: '#9ca3af',
         fontSize: '0.75rem',
       }}>
-        This canvas updates every 0.5 seconds with the focused area.
+        This canvas updates every 0.1 seconds with the focused area.
       </p>
         <div style={{
           padding: '1rem',
